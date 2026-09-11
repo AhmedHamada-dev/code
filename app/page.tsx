@@ -1,47 +1,70 @@
+'use client'
+
+import { useState } from 'react'
+import { ArrowLeft, BarChart3, BookOpen, Check, ChevronLeft, Clock3, GraduationCap, LayoutDashboard, PlayCircle, Sparkles, Star, Users, Video, WalletCards } from 'lucide-react'
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Progress } from '@/components/ui/progress'
+import { Separator } from '@/components/ui/separator'
+
+const instructor = 'الأستاذ محمد الشريف'
+
+const courses = [
+  { title: 'التفاضل والتكامل', level: 'الصف الثالث الثانوي', lessons: '42 درسًا', students: '2,480 طالبًا', color: 'bg-primary' },
+  { title: 'الجبر والهندسة', level: 'الصف الثاني الثانوي', lessons: '36 درسًا', students: '1,860 طالبًا', color: 'bg-accent' },
+  { title: 'أساسيات الرياضيات', level: 'الصف الأول الثانوي', lessons: '28 درسًا', students: '1,240 طالبًا', color: 'bg-chart-2' },
+]
+
 export default function Page() {
+  const [role, setRole] = useState<'student' | 'instructor'>('student')
+
   return (
-    <main
-      style={{
-        colorScheme: 'light dark',
-        position: 'relative',
-        display: 'flex',
-        minHeight: '100vh',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'light-dark(#fff, #000)',
-        color: 'light-dark(#000, #fff)',
-      }}
-    >
-      <svg
-        aria-hidden="true"
-        style={{ width: 80, height: 80 }}
-        width={80}
-        height={80}
-        fill="none"
-        viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg"
-        stroke="currentColor"
-        strokeWidth="0.5"
-      >
-        <path
-          d="M14.2 14.2H17V6.9375C17 4.76288 15.2371 3 13.0625 3H5.8V5.8M14.2 14.2V7.79063L7.79062 14.2H14.2ZM14.2 14.2V17H6.9375C4.76288 17 3 15.2371 3 13.0625V5.8H5.8M5.8 5.8V12.2313L12.2313 5.8H5.8Z"
-          strokeLinejoin="round"
-        />
-      </svg>
-      <p
-        style={{
-          position: 'absolute',
-          left: '50%',
-          top: 'calc(50% + 56px)',
-          transform: 'translateX(-50%)',
-          whiteSpace: 'nowrap',
-          fontSize: '14px',
-          fontWeight: 500,
-          color: 'light-dark(#71717a, #a1a1aa)',
-        }}
-      >
-        Your v0 generation will show here.
-      </p>
+    <main className="min-h-screen overflow-hidden bg-background text-foreground">
+      <header className="relative z-10 border-b border-border/70 bg-background/85 backdrop-blur-md">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 lg:px-8">
+          <div className="flex items-center gap-3">
+            <div className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm"><Sparkles aria-hidden="true" /></div>
+            <span className="text-xl font-bold tracking-tight">لِـ<span className="text-primary">Learnova</span></span>
+          </div>
+          <nav className="hidden items-center gap-7 text-sm font-medium text-muted-foreground md:flex" aria-label="التنقل الرئيسي">
+            <a className="text-foreground" href="#home">الرئيسية</a><a href="#courses" className="transition-colors hover:text-primary">الدورات</a><a href="#about" className="transition-colors hover:text-primary">عن الأستاذ</a><a href="#pricing" className="transition-colors hover:text-primary">الأسعار</a>
+          </nav>
+          <div className="flex items-center gap-2"><Button variant="ghost" className="hidden sm:inline-flex">تسجيل الدخول</Button><Button>ابدأ التعلم</Button></div>
+        </div>
+      </header>
+
+      <section id="home" className="relative mx-auto grid max-w-7xl gap-12 px-5 pb-20 pt-14 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:px-8 lg:pb-28 lg:pt-24">
+        <div className="absolute -left-24 top-16 -z-0 size-72 rounded-full bg-primary/8 blur-3xl" />
+        <div className="relative z-10 flex flex-col items-start gap-7">
+          <Badge variant="secondary" className="gap-2 px-3 py-1.5 text-primary"><Sparkles aria-hidden="true" /> تعلم بذكاء، وتفوق بثقة</Badge>
+          <h1 className="max-w-2xl text-balance text-4xl font-bold leading-[1.2] tracking-tight sm:text-5xl lg:text-6xl">الرياضيات أسهل مما <span className="text-primary">تتخيل</span></h1>
+          <p className="max-w-xl text-pretty text-lg leading-8 text-muted-foreground">منهج واضح، شرح مبسط، وتدريب مستمر يساعدك على فهم الرياضيات وتحقيق أفضل النتائج في الاختبارات.</p>
+          <div className="flex flex-wrap items-center gap-3"><Button size="lg" className="gap-2" onClick={() => document.getElementById('courses')?.scrollIntoView({ behavior: 'smooth' })}>استكشف الدورات <ArrowLeft data-icon="inline-end" /></Button><Button size="lg" variant="outline" className="gap-2"><PlayCircle data-icon="inline-start" /> شاهد كيف نعلّم</Button></div>
+          <div className="flex items-center gap-5 pt-3 text-sm text-muted-foreground"><div className="flex -space-x-2 space-x-reverse"><Avatar className="size-9 border-2 border-background"><AvatarFallback>س</AvatarFallback></Avatar><Avatar className="size-9 border-2 border-background"><AvatarFallback>م</AvatarFallback></Avatar><Avatar className="size-9 border-2 border-background"><AvatarFallback>ن</AvatarFallback></Avatar></div><span><strong className="text-foreground">+5,000</strong> طالب يتعلمون معنا</span></div>
+        </div>
+        <div className="relative z-10 mx-auto w-full max-w-lg">
+          <div className="absolute -right-4 -top-5 rounded-2xl border border-border bg-card px-4 py-3 shadow-lg"><div className="flex items-center gap-2 text-xs text-muted-foreground"><span className="size-2 rounded-full bg-chart-2" /> نسبة التحسن</div><div className="mt-1 text-lg font-bold text-foreground">+32.8%</div></div>
+          <div className="rounded-[2rem] bg-primary p-3 shadow-2xl shadow-primary/20"><div className="rounded-[1.5rem] bg-card p-5 sm:p-7"><div className="mb-8 flex items-center justify-between"><div><p className="text-sm text-muted-foreground">مرحبًا بك مجددًا</p><h2 className="mt-1 text-2xl font-bold">جاهز للتقدم؟</h2></div><div className="flex size-12 items-center justify-center rounded-2xl bg-secondary text-primary"><GraduationCap /></div></div><div className="rounded-2xl bg-secondary p-5"><div className="mb-4 flex items-center justify-between"><div><p className="text-sm font-semibold">التفاضل والتكامل</p><p className="mt-1 text-xs text-muted-foreground">الدرس 18 من 42</p></div><span className="text-sm font-bold text-primary">68%</span></div><Progress value={68} className="h-2" /><Button variant="ghost" className="mt-5 h-auto p-0 text-sm text-primary hover:bg-transparent hover:text-primary">متابعة التعلم <ChevronLeft data-icon="inline-end" /></Button></div><div className="mt-5 grid grid-cols-3 gap-3"><div className="rounded-xl border border-border p-3 text-center"><BookOpen className="mx-auto mb-2 text-primary" /><strong className="block text-lg">18</strong><span className="text-[11px] text-muted-foreground">درس مكتمل</span></div><div className="rounded-xl border border-border p-3 text-center"><Star className="mx-auto mb-2 text-chart-1" /><strong className="block text-lg">4.9</strong><span className="text-[11px] text-muted-foreground">تقييمك</span></div><div className="rounded-xl border border-border p-3 text-center"><Clock3 className="mx-auto mb-2 text-primary" /><strong className="block text-lg">12س</strong><span className="text-[11px] text-muted-foreground">وقت التعلم</span></div></div></div></div>
+        </div>
+      </section>
+
+      <section className="border-y border-border/70 bg-card"><div className="mx-auto grid max-w-7xl grid-cols-2 divide-x divide-border/70 divide-x-reverse px-5 py-7 sm:grid-cols-4 lg:px-8"><Stat icon={<Users />} value="+5,000" label="طالب متفوق" /><Stat icon={<Video />} value="+120" label="درسًا تفاعليًا" /><Stat icon={<Star />} value="4.9/5" label="متوسط التقييم" /><Stat icon={<BarChart3 />} value="92%" label="نسبة النجاح" /></div></section>
+
+      <section id="courses" className="mx-auto max-w-7xl px-5 py-20 lg:px-8"><div className="mb-10 flex flex-wrap items-end justify-between gap-5"><div><Badge variant="outline" className="mb-3 text-primary">دورات مختارة</Badge><h2 className="text-3xl font-bold tracking-tight sm:text-4xl">ابدأ رحلتك مع <span className="text-primary">الرياضيات</span></h2><p className="mt-3 text-muted-foreground">محتوى مصمم بعناية ليناسب مرحلتك ويقودك خطوة بخطوة.</p></div><Button variant="ghost" className="gap-2 text-primary">عرض كل الدورات <ArrowLeft data-icon="inline-end" /></Button></div><div className="grid gap-5 md:grid-cols-3">{courses.map((course) => <Card key={course.title} className="group overflow-hidden border-border/70 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5"><div className={`${course.color} flex h-32 items-end p-5 text-primary-foreground`}><div className="flex size-12 items-center justify-center rounded-2xl bg-background/20 backdrop-blur-sm"><BookOpen /></div></div><CardHeader className="gap-2"><div className="flex items-center justify-between gap-2"><Badge variant="secondary">{course.level}</Badge><span className="text-xs text-muted-foreground">{course.students}</span></div><CardTitle className="text-xl">{course.title}</CardTitle><CardDescription className="leading-6">فهم عميق للمفاهيم مع أمثلة وتطبيقات من واقع الاختبارات.</CardDescription></CardHeader><CardContent><div className="flex items-center justify-between text-sm text-muted-foreground"><span className="flex items-center gap-2"><Video /> {course.lessons}</span><Button variant="ghost" size="sm" className="px-0 text-primary">ابدأ الآن <ChevronLeft data-icon="inline-end" /></Button></div></CardContent></Card>)}</div></section>
+
+      <section id="about" className="bg-secondary/50"><div className="mx-auto grid max-w-7xl gap-10 px-5 py-20 lg:grid-cols-[.75fr_1.25fr] lg:items-center lg:px-8"><div className="relative mx-auto w-full max-w-sm"><div className="aspect-square rounded-[2rem] bg-primary p-3"><div className="flex h-full flex-col items-center justify-center rounded-[1.5rem] bg-card text-center"><Avatar className="mb-5 size-28 border-8 border-secondary"><AvatarFallback className="bg-primary text-3xl font-bold text-primary-foreground">م</AvatarFallback></Avatar><p className="font-mono text-xs uppercase tracking-widest text-primary">Math Mentor</p><h3 className="mt-2 text-2xl font-bold">{instructor}</h3><p className="mt-2 text-sm text-muted-foreground">خبير الرياضيات للمرحلة الثانوية</p></div></div></div><div><Badge variant="outline" className="mb-4 text-primary">منهج مختلف</Badge><h2 className="max-w-xl text-3xl font-bold leading-tight sm:text-4xl">معك في كل خطوة، من أول سؤال إلى <span className="text-primary">الدرجة النهائية</span></h2><p className="mt-5 max-w-xl text-muted-foreground leading-8">أؤمن أن كل طالب قادر على فهم الرياضيات عندما يحصل على الشرح المناسب والطريقة الصحيحة للتدريب. لهذا صممت Learnova لتكون رفيقك الدراسي اليومي.</p><div className="mt-7 grid gap-4 sm:grid-cols-2"><Feature text="شرح مبسط وواضح" /><Feature text="تدريبات تحاكي الاختبارات" /><Feature text="متابعة تقدمك باستمرار" /><Feature text="مجتمع طلابي داعم" /></div></div></div></section>
+
+      <section id="pricing" className="mx-auto max-w-7xl px-5 py-20 lg:px-8"><div className="rounded-[2rem] bg-primary px-6 py-12 text-center text-primary-foreground sm:px-12"><Badge className="border-primary-foreground/20 bg-primary-foreground/10 text-primary-foreground">ابدأ اليوم</Badge><h2 className="mx-auto mt-5 max-w-2xl text-3xl font-bold sm:text-4xl">استثمر في مستقبلك، وابدأ التعلم بثقة</h2><p className="mx-auto mt-4 max-w-xl leading-7 text-primary-foreground/75">اشترك الآن واحصل على وصول كامل لجميع الدورات والتحديثات والدعم المستمر.</p><Button size="lg" variant="secondary" className="mt-8 gap-2">احجز مقعدك الآن <ArrowLeft data-icon="inline-end" /></Button></div></section>
+
+      <section className="border-t border-border bg-card"><div className="mx-auto max-w-7xl px-5 py-10 lg:px-8"><div className="mb-5 flex flex-wrap items-center justify-between gap-4"><div><p className="text-sm font-semibold">جرّب Learnova كـ</p><p className="mt-1 text-xs text-muted-foreground">تبديل العرض لاستكشاف التجربة المناسبة</p></div><div className="flex rounded-xl bg-secondary p-1"><button onClick={() => setRole('student')} className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${role === 'student' ? 'bg-card text-primary shadow-sm' : 'text-muted-foreground'}`}>طالب</button><button onClick={() => setRole('instructor')} className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${role === 'instructor' ? 'bg-card text-primary shadow-sm' : 'text-muted-foreground'}`}>مدرس</button></div></div>{role === 'student' ? <StudentPreview /> : <InstructorPreview />}</div></section>
+      <footer className="bg-card"><Separator /><div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-7 text-sm text-muted-foreground lg:px-8"><div className="flex items-center gap-2 font-semibold text-foreground"><div className="flex size-7 items-center justify-center rounded-lg bg-primary text-primary-foreground"><Sparkles size={15} /></div> Learnova</div><p>© 2026 Learnova. صُمم بشغف لطلابنا.</p><div className="flex gap-5"><a href="#about" className="hover:text-primary">عنّا</a><a href="#pricing" className="hover:text-primary">تواصل معنا</a></div></div></footer>
     </main>
   )
 }
+
+function Stat({ icon, value, label }: { icon: React.ReactNode; value: string; label: string }) { return <div className="flex flex-col items-center gap-2 px-2 text-center sm:flex-row sm:justify-center sm:gap-3"><span className="text-primary">{icon}</span><div><strong className="block text-lg">{value}</strong><span className="text-xs text-muted-foreground">{label}</span></div></div> }
+function Feature({ text }: { text: string }) { return <div className="flex items-center gap-3 text-sm font-medium"><span className="flex size-6 items-center justify-center rounded-full bg-primary/10 text-primary"><Check size={15} /></span>{text}</div> }
+function StudentPreview() { return <div className="grid gap-4 md:grid-cols-3"><Card><CardContent className="flex items-center gap-4 p-5"><div className="flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary"><LayoutDashboard /></div><div><p className="text-sm text-muted-foreground">مسارك الدراسي</p><p className="font-bold">68% مكتمل</p></div><Progress value={68} className="ms-auto w-20" /></CardContent></Card><Card><CardContent className="flex items-center gap-4 p-5"><div className="flex size-11 items-center justify-center rounded-xl bg-secondary text-primary"><PlayCircle /></div><div><p className="text-sm text-muted-foreground">الدرس التالي</p><p className="font-bold">قاعدة السلسلة</p></div><ChevronLeft className="ms-auto text-muted-foreground" /></CardContent></Card><Card><CardContent className="flex items-center gap-4 p-5"><div className="flex size-11 items-center justify-center rounded-xl bg-accent text-accent-foreground"><WalletCards /></div><div><p className="text-sm text-muted-foreground">نقاط هذا الأسبوع</p><p className="font-bold">+240 نقطة</p></div><ChevronLeft className="ms-auto text-muted-foreground" /></CardContent></Card></div> }
+function InstructorPreview() { return <div className="grid gap-4 md:grid-cols-3"><Card><CardHeader><CardDescription>إجمالي الطلاب</CardDescription><CardTitle className="text-3xl">5,580</CardTitle></CardHeader><CardContent className="text-sm text-primary">+12.5% هذا الشهر</CardContent></Card><Card><CardHeader><CardDescription>متوسط الإنجاز</CardDescription><CardTitle className="text-3xl">74%</CardTitle></CardHeader><CardContent><Progress value={74} /></CardContent></Card><Card><CardHeader><CardDescription>الإيرادات الشهرية</CardDescription><CardTitle className="text-3xl">48,920 ر.س</CardTitle></CardHeader><CardContent className="text-sm text-primary">أداء ممتاز هذا الشهر</CardContent></Card></div> }
