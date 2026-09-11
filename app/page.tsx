@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 
-const instructor = 'الأستاذ محمد الشريف'
+const instructor = 'Ahmed El Gohary - احمد الجوهري'
 
 const courses = [
   { title: 'التفاضل والتكامل', level: 'الصف الثالث الثانوي', lessons: 'عدد الدروس قابل للتحديث', description: 'نبني الفكرة من الأساس حتى نحل أصعب أسئلة الاختبارات.', accent: 'from-primary to-indigo-400' },
